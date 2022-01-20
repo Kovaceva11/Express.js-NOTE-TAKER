@@ -4,8 +4,6 @@ const fs = require('fs');
 const noteData = require('./db/db.json')
 // Helper method for generating unique ids
 const uuid = require('./public/helpers/uuid');
-
-
 const PORT = process.env.PORT || 3001;
 
 const app = express();
@@ -48,6 +46,8 @@ app.post('/api/notes', (req, res) => {
         note_id: uuid(),
       };
 
+      noteData.push(newNote);
+      
       // Obtain existing notes
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
         if (err) {
