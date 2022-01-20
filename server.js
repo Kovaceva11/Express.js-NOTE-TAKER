@@ -4,6 +4,11 @@ const fs = require('fs');
 const noteData = require('./db/db.json')
 // Helper method for generating unique ids
 const uuid = require('./public/helpers/uuid');
+const {
+  readFromFile,
+  readAndAppend,
+  writeToFile,
+} = require('./public/helpers/fsUtils');
 const PORT = process.env.PORT || 3001;
 
 const app = express();
@@ -47,7 +52,7 @@ app.post('/api/notes', (req, res) => {
       };
 
       noteData.push(newNote);
-      
+
       // Obtain existing notes
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
         if (err) {
@@ -59,7 +64,7 @@ app.post('/api/notes', (req, res) => {
           // Add a new review
           parsedNotes.push(newNote);
   
-          // Write updated reviews back to the file
+          // Write updated notes back to the file
           fs.writeFile(
             './db/db.json',
             JSON.stringify(parsedNotes, null, 4),
@@ -70,7 +75,7 @@ app.post('/api/notes', (req, res) => {
           );
         }
       });
-  
+    
       const response = {
         status: 'success',
         body: newNote,
@@ -83,7 +88,81 @@ app.post('/api/notes', (req, res) => {
     }
   });
 
+//   // This kinda works, but changes the db.json file into a string.
+//   app.delete('/api/notes/:id', function(req, res) {
+//     let jsonFilePath = path.join(__dirname, "./db/db.json");
 
+//     for (let i = 0; i < noteData.length; i++) {
+
+//         if (noteData[i].note_id == req.params.note_id) {
+//             noteData.splice(i, 1);
+//             break;
+//         }
+//     }
+    
+
+//     fs.writeFileSync(jsonFilePath, JSON.stringify(noteData), function(err) {
+//         if (err) {
+//             return console.log(err);
+//         } else {
+//             console.log('Note was deleted');
+//         }
+//     })
+//     res.json(noteData);
+// })
+
+// This works. Kinda. Does not delete data from db.json.
+  app.delete('/api/notes/:id', (req, res) => {
+    const noteId = noteData.splice(req.params.note_id, 1);
+    // const noteId = req.params.note_id;
+    readAndAppend('./db/db.json')
+      .then((data) => JSON.parse(data))
+      .then((json) => {
+        // Make a new array of all tips except the one with the ID provided in the URL
+        const result = json.filter((note) => note.note_id !== noteId);
+
+        // Save that array to the filesystem
+        writeToFile('./db/db.json', result);
+
+        // Respond to the DELETE request
+        res.json(`Item ${noteId} has been deleted 🗑️`);
+      });
+  });
+
+// // Another Attempt
+// app.delete("/api/notes/:id", (req, res) => {
+//   let chosenNoteToDelete = req.params.id;
+//   fs.readFile(__dirname + "/db/db.json", (err, data) => {
+//       if (err) {
+//           console.log(err);
+//           res.sendStatus(500);
+//           return;
+//       }
+//       try {
+//           let json = JSON.parse(data);
+//       } catch(e) {
+//           console.log(err);
+//           res.sendStatus(500);
+//           return;
+//       }
+
+//       for (let i = 0; i < json.length; i++) {
+//           if (json[i].id === chosenNoteToDelete) {
+//               json.splice(i, 1);
+//               return;
+//           }
+//       }
+
+//       fs.writeFile(__dirname + "/db/db.json", JSON.stringify(json), (err) => {
+//           if (err) {
+//               console.log(err);
+//               res.sendStatus(500);
+//               return;
+//           }
+//           res.send("Successfully deleted");
+//       });
+//   });
+// });
 
 app.listen(PORT, () =>
   console.log(`App listening at http://localhost:${PORT} 🚀`)
