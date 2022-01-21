@@ -92,8 +92,8 @@ app.post("/api/notes", (req, res) => {
 // Delete function to delete a note from the db.json file
 app.delete("/api/notes/:id", function (req, res) {
   let jsonFilePath = path.join(__dirname, "./db/db.json");
-  console.log(req.param.id);
-  console.log(noteData);
+  // console.log(req.param.id);
+  // console.log(noteData);
 
   readFromFile("./db/db.json").then((data) => {
 
