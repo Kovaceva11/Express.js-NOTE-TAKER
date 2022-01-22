@@ -37,7 +37,7 @@
   ## Contribute  
   No contributions required at this time.  
   ## Tests  
-  There are notests at this time.  
+  There are no tests at this time.  
   ## Questions?  
   [Contact Me via Email Here](mailto:adam.kovacevich.develop@gmail.com)   
       
