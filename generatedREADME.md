@@ -1,5 +1,4 @@
 # Express Note Taker Creator
-
   ## Table of Contents  
   1.[Description](#Description)  
   2.[Installation](#Installation)  
@@ -23,7 +22,7 @@
   ## Installation  
   No installation instructions required for this application. Please visit the Deployed Link to view my application. If you have any questions, please contact me directly.   
   ## Usage  
-  Add Screenshots Here  
+  ![Screenshot](Assets/guarded-escarpment-51515.herokuapp.com_notes.png)
   ## Credits  
 
   Express.JS https://expressjs.com/

@@ -1,11 +1,6 @@
 # Express.js-NOTE-TAKER
 A simple application using Express.JS, Javascript, HTML, CSS to create a NOTE TAKER that can be used to write and save notes. 
 
-
-git@github.com:Kovaceva11/Express.js-NOTE-TAKER.git
-
-# 11 Express.js: Note Taker
-
 ## Your Task
 
 Your assignment is to modify starter code to create an application called Note Taker that can be used to write and save notes. This application will use an Express.js back end and will save and retrieve note data from a JSON file.
