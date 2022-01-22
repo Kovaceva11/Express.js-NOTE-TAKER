@@ -38,7 +38,7 @@ app.post("/api/notes", (req, res) => {
   // Log that a POST request was received
   console.info(`${req.method} request received to add a note`);
 
-  // Destructuring assignment for the items in req.body
+  // Destructuring object for the items in req.body
   const { title, text } = req.body;
 
   // If all the required properties are present
@@ -116,8 +116,8 @@ app.delete("/api/notes/:id", function (req, res) {
   res.json(noteData);
 
   });
-  
-});
+
+}); //end app.delete
 
 app.listen(PORT, () =>
   console.log(`App listening at http://localhost:${PORT} 🚀`)
