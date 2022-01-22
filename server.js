@@ -102,10 +102,9 @@ app.delete("/api/notes/:id", function (req, res) {
       if (newVariable[i].id == req.params.id) {
         noteData.splice(i, 1);
         break;
-    }
-    }
-  });
-
+    }};
+  
+// this fs.writeFile function must be located inside the readFromFile() in order to correctly delete the data from the db.json file.
   fs.writeFile(jsonFilePath, JSON.stringify(noteData, null, 2), function (err) {
     if (err) {
       return console.log(err);
@@ -113,9 +112,12 @@ app.delete("/api/notes/:id", function (req, res) {
       console.log("Note was deleted");
     }
   });
-  res.json(noteData);
-});
 
+  res.json(noteData);
+
+  });
+  
+});
 
 app.listen(PORT, () =>
   console.log(`App listening at http://localhost:${PORT} 🚀`)
